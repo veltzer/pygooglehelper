@@ -10,6 +10,9 @@ setuptools.setup(
     # the first three fields are a must according to the documentation
     name="pygooglehelper",
     version="0.0.1",
+    packages=[
+        'pygooglehelper',
+    ],
     # from here all is optional
     description="help you with the google API",
     long_description=get_readme(),

@@ -8,12 +8,12 @@
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/pymakehelper.egg-info" />
+      <excludeFolder url="file://$MODULE_DIR$/pygooglehelper.egg-info" />
       <excludeFolder url="file://$MODULE_DIR$/htmlcov" />
       <excludeFolder url="file://$MODULE_DIR$/docs" />
       <excludeFolder url="file://$MODULE_DIR$/wheel" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8 (pymakehelper)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (pygooglehelper)" jdkType="Python SDK" />
   </component>
   <component name="TemplatesService">
     <option name="templateFileTypes">

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pymakehelper.iml" filepath="$PROJECT_DIR$/.idea/pymakehelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pygooglehelper.iml" filepath="$PROJECT_DIR$/.idea/pygooglehelper.iml" />
     </modules>
   </component>
 </project>
