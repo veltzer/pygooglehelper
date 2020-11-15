@@ -35,6 +35,9 @@ setuptools.setup(
         'python3',
     ],
     install_requires=[
+        'google-api-python-client',
+        'google-auth-httplib2',
+        'google-auth-oauthlib',
         'pytconf',
     ],
     extras_require={
