@@ -14,7 +14,6 @@
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ![build](https://github.com/veltzer/pygooglehelper/workflows/build/badge.svg)
-
 help you with the google API
 
 project website: https://veltzer.github.io/pygooglehelper
