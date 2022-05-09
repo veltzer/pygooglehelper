@@ -1,4 +1,9 @@
 # THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
+# production requirements
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+pytconf
 # dev requirements
 pyclassifiers
 pypitools
