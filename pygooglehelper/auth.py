@@ -1,23 +1,27 @@
 import os
 import pickle
-from logging import Logger
+import logging
 from typing import List
+from functools import partial
+
+from pytconf import register_function
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 from pygooglehelper.util import str_list_md5, ensure_folder
+from pygooglehelper.configs import ConfigAuth
+from pygooglehelper.static import LOGGER_NAME
 
 
 def get_credentials(
     app_name: str,
     scopes: List[str],
-    logger: Logger,
-    host: str = "localhost",
-    port: int = 0,
-    authorization_prompt_message: str = "",
-    force: bool = False,
+    host: str = ConfigAuth.host,
+    port: int = ConfigAuth.port,
+    authorization_prompt_message: str = ConfigAuth.authorization_prompt_message,
+    force: bool = ConfigAuth.force,
 ) -> Credentials:
     """
     The file token.pickle stores the user's access and refresh tokens, and is
@@ -25,6 +29,7 @@ def get_credentials(
     time.
     It is also updated when refreshing or when the scopes change.
     """
+    logger = logging.getLogger(LOGGER_NAME)
     credentials = None
     md5_of_scopes = str_list_md5(scopes)
     token_filename = os.path.expanduser(f"~/.config/google_tokens/token-{md5_of_scopes}.pickle")
@@ -64,3 +69,16 @@ def get_credentials(
     else:
         logger.debug(f"have valid credentials in [{token_filename}]")
     return credentials
+
+
+def register_functions(scopes: List[str], app_name: str):
+    register_function(
+        function=partial(
+            get_credentials,
+            scopes=scopes,
+            app_name=app_name
+        ),
+        description="Do the authentication procedure and get token for your app",
+        name="auth",
+        configs=[ConfigAuth],
+    )
