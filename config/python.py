@@ -1,7 +1,6 @@
 dev_requires = [
     "pyclassifiers",
     "pypitools",
-    "pydmt",
     "Sphinx",
 ]
 install_requires = [
@@ -10,12 +9,15 @@ install_requires = [
     "google-auth-oauthlib",
     "pytconf",
 ]
+make_requires = [
+    "pymakehelper",
+    "pydmt",
+]
 test_requires = [
     "pylint",
     "pytest",
     "pytest-cov",
     "pyflakes",
     "flake8",
-    "pymakehelper",
     "mypy",
 ]
