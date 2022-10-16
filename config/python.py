@@ -11,7 +11,7 @@ make_requires = [
     "pymakehelper",
     "pydmt",
     "pyclassifiers",
-    "Sphinx",
+    "sphinx",
 ]
 test_requires = [
     "pylint",
