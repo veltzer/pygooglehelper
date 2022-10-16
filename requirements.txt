@@ -4,12 +4,3 @@ google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 pytconf
-# dev requirements
-pypitools
-# test requirements
-pylint
-pytest
-pytest-cov
-pyflakes
-flake8
-mypy
