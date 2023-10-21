@@ -15,12 +15,23 @@ class ConfigAuth(Config):
     )
     port = ParamCreator.create_int(
         help_string="The port for the local redirect server, passed to run_local_server",
-        # default=8080,
         default=0,
     )
-    # noinspection PyProtectedMember
     authorization_prompt_message = ParamCreator.create_str(
         help_string="The message to display to tell the user to navigate to the authorization URL",
-        # default=InstalledAppFlow._DEFAULT_AUTH_PROMPT_MESSAGE,
-        default="",
+        default="navigate to that URL",
+    )
+
+
+class ConfigRequest(Config):
+    """
+    Configuration of the specific request
+    """
+    app_name = ParamCreator.create_str_or_none(
+        help_string="The app name to give permission to",
+        default=None,
+    )
+    scopes = ParamCreator.create_list_str(
+        help_string="List of security scopes requested",
+        default=[],
     )
