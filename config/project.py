@@ -1,7 +1,7 @@
 name = "pygooglehelper"
 description_short = "help you with the google API"
 keywords = [
-    "API",
+    "api",
     "google",
     "python",
     "auth",
