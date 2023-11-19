@@ -22,7 +22,7 @@ setuptools.setup(
     maintainer="Mark Veltzer",
     maintainer_email="mark.veltzer@gmail.com",
     keywords=[
-        "API",
+        "api",
         "google",
         "python",
         "auth",
