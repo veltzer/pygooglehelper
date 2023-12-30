@@ -1,7 +1,7 @@
 from typing import List
 
 
-config_requies: List[str] = []
+config_requires: List[str] = []
 dev_requires: List[str] = [
     "pypitools",
 ]
