@@ -1,9 +1,11 @@
 from typing import List
 
 
-config_requires: List[str] = []
 dev_requires: List[str] = [
     "pypitools",
+]
+config_requires: List[str] = [
+    "pyclassifiers",
 ]
 install_requires: List[str] = [
     "google-api-python-client",
@@ -14,7 +16,6 @@ install_requires: List[str] = [
 make_requires: List[str] = [
     "pymakehelper",
     "pydmt",
-    "pyclassifiers",
 ]
 test_requires: List[str] = [
     "pylint",
