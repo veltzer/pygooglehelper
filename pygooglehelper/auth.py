@@ -46,7 +46,7 @@ def get_credentials(
         else:
             client_secret = os.path.expanduser(f"~/.config/{app_name}/client_secret.json")
             if not os.path.isfile(client_secret):
-                raise IOError(f"missing client secret file [{client_secret}] for application [{app_name}]")
+                raise IOError(f"missing [{client_secret=}] for [{app_name=}]")
             logger.debug(f"creating credentials from client secret at {client_secret}")
             flow = InstalledAppFlow.from_client_secrets_file(
                 client_secret, scopes,
