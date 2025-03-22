@@ -1,3 +1,4 @@
+""" project definitions """
 name = "pygooglehelper"
 description_short = "help you with the google API"
 keywords = [
