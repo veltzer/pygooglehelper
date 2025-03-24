@@ -1,3 +1,7 @@
+"""
+Initialize the module
+"""
+
 from pygooglehelper.configs import (  # noqa F401
     ConfigAuth,
     ConfigRequest,
