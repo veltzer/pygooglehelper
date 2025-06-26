@@ -29,11 +29,11 @@ class ConfigRequest(Config):
     """
     Configuration of the specific request
     """
-    app_name = ParamCreator.create_str_or_none(
-        help_string="The app name to give permission to",
-        default=None,
-    )
     scopes = ParamCreator.create_list_str(
         help_string="List of security scopes requested",
         default=[],
+    )
+    location = ParamCreator.create_str_or_none(
+        help_string="Where is the location of the client_secret.json",
+        default=None,
     )

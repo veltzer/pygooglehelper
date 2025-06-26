@@ -22,8 +22,8 @@ def get_credentials(
     time.
     It is also updated when refreshing or when the scopes change.
     """
-    app_name: str = ConfigRequest.app_name
     scopes: List[str] = ConfigRequest.scopes
+    location: str = ConfigRequest.location
     host: str = ConfigAuth.host
     port: int = ConfigAuth.port
     authorization_prompt_message: str = ConfigAuth.authorization_prompt_message
@@ -46,9 +46,7 @@ def get_credentials(
                 logger.debug("refreshing credentials")
                 credentials.refresh(Request())
         else:
-            client_secret = os.path.expanduser(f"~/.config/{app_name}/client_secret.json")
-            if not os.path.isfile(client_secret):
-                raise IOError(f"missing [{client_secret=}] for [{app_name=}]")
+            client_secret = os.path.join(location, "client_secret.json")
             logger.debug(f"creating credentials from client secret at {client_secret}")
             flow = InstalledAppFlow.from_client_secrets_file(
                 client_secret, scopes,
