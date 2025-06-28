@@ -1,14 +1,12 @@
 # THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
-pyclassifiers
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
-pytconf
-pymakehelper
+mypy
+pyclassifiers
 pydmt
 pylint
+pymakehelper
+pytconf
 pytest
 pytest-cov
-pyflakes
-flake8
-mypy
