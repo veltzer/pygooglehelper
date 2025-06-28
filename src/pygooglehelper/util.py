@@ -2,7 +2,6 @@
 
 import hashlib
 import os
-from typing import List
 
 
 def str_list_md5(scopes: list[str]) -> str:
