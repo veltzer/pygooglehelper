@@ -5,7 +5,7 @@ import os
 from typing import List
 
 
-def str_list_md5(scopes: List[str]) -> str:
+def str_list_md5(scopes: list[str]) -> str:
     all_string = ",".join(scopes)
     m = hashlib.md5(all_string.encode())
     return m.hexdigest()

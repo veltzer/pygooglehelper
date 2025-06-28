@@ -22,7 +22,7 @@ def get_credentials(
     time.
     It is also updated when refreshing or when the scopes change.
     """
-    scopes: List[str] = ConfigRequest.scopes
+    scopes: list[str] = ConfigRequest.scopes
     location: str = ConfigRequest.location
     host: str = ConfigAuth.host
     port: int = ConfigAuth.port
