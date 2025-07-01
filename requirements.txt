@@ -65,7 +65,6 @@ protobuf==6.31.1
 ptyprocess==0.7.0
 pyasn1==0.6.1
 pyasn1-modules==0.4.2
-pyclassifiers==0.0.20
 pycmdtools==0.0.85
 pycparser==2.22
 pydmt==0.3.26

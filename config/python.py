@@ -1,8 +1,7 @@
 """ python deps for this project """
 
-config_requires: list[str] = [
-    "pyclassifiers",
-]
+import config.shared
+
 install_requires: list[str] = [
     "google-api-python-client",
     "google-auth-httplib2",
@@ -21,4 +20,4 @@ test_requires: list[str] = [
     "mypy",
     "ruff",
 ]
-requires = config_requires + install_requires + build_requires + test_requires
+requires = install_requires + build_requires + test_requires

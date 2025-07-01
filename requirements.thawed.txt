@@ -4,7 +4,6 @@ google-auth-httplib2
 google-auth-oauthlib
 hatch
 mypy
-pyclassifiers
 pycmdtools
 pydmt
 pylint
