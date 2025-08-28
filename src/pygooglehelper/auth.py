@@ -16,7 +16,7 @@ from pygooglehelper.static import LOGGER_NAME
 def get_credentials(
 ) -> Credentials:
     """
-    The file token.pickle stores the user's access and refresh tokens, and is
+    The file token.pickle stores the users access and refresh tokens, and is
     created automatically when the authorization flow completes for the first
     time.
     It is also updated when refreshing or when the scopes change.
@@ -56,7 +56,7 @@ def get_credentials(
                 authorization_prompt_message=authorization_prompt_message,
             )
         logger.debug(f"creating a new token file [{token_filename}]")
-        # there is a need to remove the old file if it exists since we chmod them so we can't overwrite them
+        # there is a need to remove the old file if it exists since we chmod them so we cant overwrite them
         if os.access(token_filename, os.R_OK):
             os.unlink(token_filename)
         ensure_folder(token_filename)
