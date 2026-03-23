@@ -24,3 +24,15 @@ enabled = false
 
 [processor.rumdl]
 enabled = false
+
+[processor.slidev]
+enabled = false
+
+[processor.tidy]
+enabled = false
+
+[processor.htmlhint]
+enabled = false
+
+[processor.htmllint]
+enabled = false
