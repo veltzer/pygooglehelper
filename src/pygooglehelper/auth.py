@@ -1,16 +1,16 @@
 """ auth.py """
 
+import logging
 import os
 import pickle
-import logging
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-from pygooglehelper.util import str_list_md5, ensure_folder
 from pygooglehelper.configs import ConfigAuth, ConfigRequest
 from pygooglehelper.static import LOGGER_NAME
+from pygooglehelper.util import ensure_folder, str_list_md5
 
 
 def get_credentials(
@@ -33,9 +33,8 @@ def get_credentials(
     md5_of_scopes = str_list_md5(scopes)
     token_filename = os.path.expanduser(f"~/.config/google_tokens/token-{md5_of_scopes}.pickle")
     logger.debug(f"reading credentials from [{token_filename}]")
-    if force:
-        if os.access(token_filename, os.R_OK):
-            os.unlink(token_filename)
+    if force and os.access(token_filename, os.R_OK):
+        os.unlink(token_filename)
     if os.access(token_filename, os.R_OK):
         with open(token_filename, "rb") as token_stream:
             credentials = pickle.load(token_stream)
