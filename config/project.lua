@@ -7,3 +7,4 @@ KEYWORDS = {
     "auth",
     "pagination",
 }
+PYPI = true
