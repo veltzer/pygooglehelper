@@ -37,3 +37,7 @@ class ConfigRequest(Config):
         help_string="Where is the location of the client_secret.json",
         default=None,
     )
+    app_name = ParamCreator.create_str_or_none(
+        help_string="Name of the application, used to find ~/.config/[app_name]/client_secret.json",
+        default=None,
+    )

@@ -1,5 +1,6 @@
 """ auth.py """
 
+import importlib
 import logging
 import os
 import pickle
@@ -13,6 +14,39 @@ from pygooglehelper.static import LOGGER_NAME
 from pygooglehelper.util import ensure_folder, str_list_md5
 
 
+def get_client_secret() -> str:
+    """
+    Find the client_secret.json for this application.
+
+    Two places, in order:
+      1. ~/.config/[app_name]/client_secret.json -- a credential the user put
+         there themselves, which always wins so it can override the shipped one.
+      2. the installed package folder -- the copy the build hook ships inside
+         the wheel, so a plain `pip install` works with no user setup.
+
+    An explicit "location" folder overrides both, for callers that keep the
+    credential somewhere else entirely.
+    """
+    location: str = ConfigRequest.location
+    app_name: str = ConfigRequest.app_name
+    if location is not None:
+        return os.path.join(location, "client_secret.json")
+    if app_name is None:
+        raise ValueError("one of ConfigRequest.app_name or ConfigRequest.location must be set")
+
+    config_path = os.path.expanduser(f"~/.config/{app_name}/client_secret.json")
+    if os.path.isfile(config_path):
+        return config_path
+
+    packaged = os.path.join(os.path.dirname(importlib.import_module(app_name).__file__), "client_secret.json")
+    if os.path.isfile(packaged):
+        return packaged
+
+    raise FileNotFoundError(
+        f"no client_secret.json for {app_name}: looked in {config_path} and {packaged}"
+    )
+
+
 def get_credentials(
 ) -> Credentials:
     """
@@ -22,7 +56,6 @@ def get_credentials(
     It is also updated when refreshing or when the scopes change.
     """
     scopes: list[str] = ConfigRequest.scopes
-    location: str = ConfigRequest.location
     host: str = ConfigAuth.host
     port: int = ConfigAuth.port
     authorization_prompt_message: str = ConfigAuth.authorization_prompt_message
@@ -44,7 +77,7 @@ def get_credentials(
                 logger.debug("refreshing credentials")
                 credentials.refresh(Request())
         else:
-            client_secret = os.path.join(location, "client_secret.json")
+            client_secret = get_client_secret()
             logger.debug(f"creating credentials from client secret at {client_secret}")
             flow = InstalledAppFlow.from_client_secrets_file(
                 client_secret, scopes,

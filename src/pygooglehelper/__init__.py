@@ -10,5 +10,6 @@ from pygooglehelper.register_hook import (  # noqa F401
     register_functions,
 )
 from pygooglehelper.auth import (  # noqa F401
+    get_client_secret,
     get_credentials,
 )
