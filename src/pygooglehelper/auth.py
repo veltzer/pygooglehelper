@@ -62,7 +62,7 @@ def get_credentials(
     force: bool = ConfigAuth.force
 
     logger = logging.getLogger(LOGGER_NAME)
-    credentials = None
+    credentials: Credentials | None = None
     md5_of_scopes = str_list_md5(scopes)
     token_filename = os.path.expanduser(f"~/.config/google_tokens/token-{md5_of_scopes}.pickle")
     logger.debug(f"reading credentials from [{token_filename}]")
