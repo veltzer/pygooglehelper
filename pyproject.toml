@@ -40,6 +40,18 @@ dependencies = [
     "pytconf",
 ]
 
+[dependency-groups]
+dev = [
+    "mypy",
+    "pylint",
+    "pytest",
+    # pytconf 0.1.22 imports yaml but its published metadata does not
+    # declare pyyaml (already fixed in the pytconf repo, unreleased);
+    # drop this once pytconf 0.1.23 is on PyPI
+    "pyyaml",
+    "ruff",
+]
+
 [project.urls]
 "Homepage" = "https://github.com/veltzer/pygooglehelper"
 "Bug Tracker" = "https://github.com/veltzer/pygooglehelper/issues"
