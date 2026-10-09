@@ -38,9 +38,11 @@ def get_client_secret() -> str:
     if os.path.isfile(config_path):
         return config_path
 
-    packaged = os.path.join(os.path.dirname(importlib.import_module(app_name).__file__), "client_secret.json")
-    if os.path.isfile(packaged):
-        return packaged
+    module_file = importlib.import_module(app_name).__file__
+    if module_file is not None:
+        packaged = os.path.join(os.path.dirname(module_file), "client_secret.json")
+        if os.path.isfile(packaged):
+            return packaged
 
     raise FileNotFoundError(
         f"no client_secret.json for {app_name}: looked in {config_path} and {packaged}"
@@ -97,4 +99,5 @@ def get_credentials(
             pickle.dump(credentials, token_stream)
     else:
         logger.debug(f"have valid credentials in [{token_filename}]")
+    assert credentials is not None
     return credentials
