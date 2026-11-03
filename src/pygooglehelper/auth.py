@@ -4,7 +4,9 @@ import importlib
 import logging
 import os
 import pickle
+import sys
 
+from google.auth.exceptions import RefreshError, TransportError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -49,6 +51,44 @@ def get_client_secret() -> str:
     )
 
 
+def get_token_filename() -> str:
+    """ the pickle that caches the tokens for the scopes in ConfigRequest """
+    md5_of_scopes = str_list_md5(ConfigRequest.scopes)
+    return os.path.expanduser(f"~/.config/google_tokens/token-{md5_of_scopes}.pickle")
+
+
+def check_token() -> None:
+    """
+    Check that the cached token is usable without any user interaction.
+
+    A still-valid access token is reported as is; an expired one is refreshed
+    with the refresh token, which is what proves the refresh token still works
+    (and counts as use of the OAuth client under Google's inactivity policy).
+    The refreshed token is not written back: this is a check, and the token
+    file may be a symlink that a rewrite would replace. Exits with status 1
+    when the token is missing or cannot be refreshed.
+    """
+    token_filename = get_token_filename()
+    if not os.access(token_filename, os.R_OK):
+        print(f"Token: MISSING ({token_filename}). Run 'auth'.", file=sys.stderr)
+        sys.exit(1)
+    with open(token_filename, "rb") as token_stream:
+        credentials: Credentials = pickle.load(token_stream)
+    if not credentials.valid:
+        if not credentials.refresh_token:
+            print("Token: INVALID (expired and has no refresh token). Run 'auth --force'.", file=sys.stderr)
+            sys.exit(1)
+        try:
+            credentials.refresh(Request())
+        except RefreshError as e:
+            print(f"Token: INVALID ({e}). Run 'auth --force'.", file=sys.stderr)
+            sys.exit(1)
+        except TransportError as e:
+            print(f"Token: UNKNOWN (could not reach Google: {e})", file=sys.stderr)
+            sys.exit(1)
+    print(f"Token: VALID (access token expires {credentials.expiry} UTC)")
+
+
 def get_credentials(
 ) -> Credentials:
     """
@@ -65,8 +105,7 @@ def get_credentials(
 
     logger = logging.getLogger(LOGGER_NAME)
     credentials: Credentials | None = None
-    md5_of_scopes = str_list_md5(scopes)
-    token_filename = os.path.expanduser(f"~/.config/google_tokens/token-{md5_of_scopes}.pickle")
+    token_filename = get_token_filename()
     logger.debug(f"reading credentials from [{token_filename}]")
     if force and os.access(token_filename, os.R_OK):
         os.unlink(token_filename)
