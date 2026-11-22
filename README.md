@@ -5,7 +5,7 @@
 
 description: help you with the google API
 
-project website: https://veltzer.github.io/pygooglehelper
+project website: <https://veltzer.github.io/pygooglehelper>
 
 author: Mark Veltzer
 
