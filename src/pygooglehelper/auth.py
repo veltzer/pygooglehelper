@@ -107,7 +107,7 @@ def get_credentials(
     logger = logging.getLogger(LOGGER_NAME)
     credentials: Credentials | None = None
     token_filename = get_token_filename()
-    logger.debug(f"reading credentials from [{token_filename}]")
+    logger.debug("reading credentials from [%s]", token_filename)
     if force and os.access(token_filename, os.R_OK):
         os.unlink(token_filename)
     if os.access(token_filename, os.R_OK):
@@ -120,7 +120,7 @@ def get_credentials(
                 credentials.refresh(Request())
         else:
             client_secret = get_client_secret()
-            logger.debug(f"creating credentials from client secret at {client_secret}")
+            logger.debug("creating credentials from client secret at %s", client_secret)
             flow = InstalledAppFlow.from_client_secrets_file(
                 client_secret, scopes,
             )
@@ -132,7 +132,7 @@ def get_credentials(
             if not isinstance(new_credentials, Credentials):
                 raise TypeError(f"unexpected credentials type [{type(new_credentials).__name__}]")
             credentials = new_credentials
-        logger.debug(f"creating a new token file [{token_filename}]")
+        logger.debug("creating a new token file [%s]", token_filename)
         # there is a need to remove the old file if it exists since we chmod them so we cant overwrite them
         if os.access(token_filename, os.R_OK):
             os.unlink(token_filename)
@@ -141,6 +141,6 @@ def get_credentials(
             os.fchmod(token_stream.fileno(), 0o400)
             pickle.dump(credentials, token_stream)
     else:
-        logger.debug(f"have valid credentials in [{token_filename}]")
+        logger.debug("have valid credentials in [%s]", token_filename)
     assert credentials is not None
     return credentials
