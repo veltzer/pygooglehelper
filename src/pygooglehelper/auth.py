@@ -29,8 +29,8 @@ def get_client_secret() -> str:
     An explicit "location" folder overrides both, for callers that keep the
     credential somewhere else entirely.
     """
-    location: str = ConfigRequest.location
-    app_name: str = ConfigRequest.app_name
+    location: str | None = ConfigRequest.location
+    app_name: str | None = ConfigRequest.app_name
     if location is not None:
         return os.path.join(location, "client_secret.json")
     if app_name is None:
@@ -40,6 +40,7 @@ def get_client_secret() -> str:
     if os.path.isfile(config_path):
         return config_path
 
+    packaged = None
     module_file = importlib.import_module(app_name).__file__
     if module_file is not None:
         packaged = os.path.join(os.path.dirname(module_file), "client_secret.json")
@@ -123,11 +124,14 @@ def get_credentials(
             flow = InstalledAppFlow.from_client_secrets_file(
                 client_secret, scopes,
             )
-            credentials = flow.run_local_server(
+            new_credentials = flow.run_local_server(
                 host=host,
                 port=port,
                 authorization_prompt_message=authorization_prompt_message,
             )
+            if not isinstance(new_credentials, Credentials):
+                raise TypeError(f"unexpected credentials type [{type(new_credentials).__name__}]")
+            credentials = new_credentials
         logger.debug(f"creating a new token file [{token_filename}]")
         # there is a need to remove the old file if it exists since we chmod them so we cant overwrite them
         if os.access(token_filename, os.R_OK):
