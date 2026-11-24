@@ -38,6 +38,13 @@ class ConfigRequest(Config):
         default=None,
     )
     app_name = ParamCreator.create_str_or_none(
-        help_string="Name of the application, used to find ~/.config/[app_name]/client_secret.json",
+        help_string="Name of the application, used to find the packaged client_secret.json and ~/.config/[app_name]/client_secret.json",
+        default=None,
+    )
+    gcp_project = ParamCreator.create_str_or_none(
+        help_string=(
+            "GCP project id. When set and pass(1) has gcp/[gcp_project]/oauth-client, "
+            "that is the OAuth client; the token is kept in gcp/[gcp_project]/token"
+        ),
         default=None,
     )
