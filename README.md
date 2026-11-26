@@ -9,7 +9,7 @@ project website: <https://veltzer.github.io/pygooglehelper>
 
 author: Mark Veltzer
 
-version: 0.0.11
+version: 0.0.12
 
 ## github
 
