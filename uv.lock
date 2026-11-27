@@ -649,16 +649,16 @@ wheels = [
 
 [[package]]
 name = "pytconf"
-version = "0.1.27"
+version = "0.1.28"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyyaml" },
     { name = "termcolor" },
     { name = "yattag" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/85/48/05d240858e8cb061594c6db652eafeb037417a582ccf37aaaeff14b360a3/pytconf-0.1.27.tar.gz", hash = "sha256:328fcf80d972a4b2af28b4d9b8e9f14e6fac197a03086f5e01cbc2f8f8ba46f3", size = 14101, upload-time = "2026-11-26T17:03:58.786Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f9/8a/5cfbce7984e4547c43e8c097b71860788506401ce32cb0835ef3f008a9a7/pytconf-0.1.28.tar.gz", hash = "sha256:3cfb4ec3071537558a834d4df33833ce72baa93c82e82ae596958455f05a62f5", size = 14184, upload-time = "2026-11-27T00:02:23.532Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c4/d7/8b57baddc57b321d5fa8c9763ae33519cdf170a0fd5a264fe47e56c76b46/pytconf-0.1.27-py3-none-any.whl", hash = "sha256:90a0c545ab925b839edba8bb55835c637e33d648d80f6b6e33553dde42cfebe9", size = 15313, upload-time = "2026-11-26T17:03:57.549Z" },
+    { url = "https://files.pythonhosted.org/packages/46/00/300b12d7eee6f13d939472d018e251c9d6d2e71dbd62548692ad887c3fb2/pytconf-0.1.28-py3-none-any.whl", hash = "sha256:98cab6e728e2d736957c03a29ce4496e67d3adc7c0adb8d23c2d4f336ad61f1a", size = 15523, upload-time = "2026-11-27T00:02:22.26Z" },
 ]
 
 [[package]]
