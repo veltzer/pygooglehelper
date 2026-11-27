@@ -5,6 +5,7 @@ so nothing touches a real password store or the network.
 
 import json
 from typing import Any
+from unittest.mock import Mock
 
 import pytest
 from google.oauth2.credentials import Credentials
@@ -106,7 +107,10 @@ def test_missing_token_authorizes_and_stores_in_pass(store: FakePass, monkeypatc
         token="access", refresh_token="r9", client_id="id", client_secret="s",
         token_uri="https://oauth2.googleapis.com/token", scopes=SCOPES,
     )
-    monkeypatch.setattr(auth, "_authorize", lambda client_config: fresh if client_config == CLIENT else None)
+    def authorize(client_config: dict[str, Any]) -> Credentials | None:
+        return fresh if client_config == CLIENT else None
+
+    monkeypatch.setattr(auth, "_authorize", authorize)
     assert auth.get_credentials() is fresh
     saved = json.loads(store.entries["gcp/proj/token"])
     assert saved["refresh_token"] == "r9"
@@ -120,6 +124,6 @@ def test_scopes_not_covered_reauthorizes(store: FakePass, monkeypatch: pytest.Mo
         token="access", refresh_token="r9", client_id="id", client_secret="s",
         token_uri="https://oauth2.googleapis.com/token", scopes=SCOPES,
     )
-    monkeypatch.setattr(auth, "_authorize", lambda _client_config: fresh)
+    monkeypatch.setattr(auth, "_authorize", Mock(return_value=fresh))
     assert auth.get_credentials() is fresh
     assert store.inserts == ["gcp/proj/token"]
